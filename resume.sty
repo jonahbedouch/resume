@@ -1,0 +1,198 @@
+\ProvidesPackage{resume}
+
+%%% Import Relevant Packages
+\usepackage{fontspec}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{xkeyval}
+\usepackage{enumitem}
+\usepackage[letterpaper, margin=0.25in]{geometry}
+\setlist[itemize,1]{leftmargin=0.25in, label=$\bullet$, noitemsep, topsep=0pt}
+\gdef\empty{}
+%%% End
+
+
+%%% Set font stuff
+\setmainfont[Ligatures=TeX, FontFace={l}{n}{*-Light}, FontFace={l}{it}{*-LightItalic}]{Merriweather}
+\setlength\parindent{0pt}
+\raggedright
+%%% End
+
+%%% Create Commands for Title
+\newcommand*{\name}[1]{\gdef\@name{#1}}
+\newcommand*{\@name}{Your Name}
+
+\newcommand*{\email}[1]{\gdef\@email{#1}}
+\newcommand*{\@email}{}
+
+\newcommand*{\phone}[2]{\gdef\@phone{#1}\gdef\@tel{#2}}
+\newcommand*{\@phone}{}
+
+\newcommand*{\linkone}[2]{\gdef\@linkone{#1}\gdef\@urlone{#2}}
+\newcommand*{\@linkone}{}
+
+\newcommand*{\linktwo}[2]{\gdef\@linktwo{#1}\gdef\@urltwo{#2}}
+\newcommand*{\@linktwo}{}
+
+\newcommand*{\linkthree}[2]{\gdef\@linkthree{#1}\gdef\@urlthree{#2}}
+\newcommand*{\@linkthree}{}
+%%%
+
+%%% Social Aliases
+
+\newcounter{rightcount}
+\setcounter{rightcount}{1}
+\newcommand*{\website}[2]{
+
+  \ifnum\value{rightcount}=1
+    \linkone{#1}{#2}
+  \fi
+
+  \ifnum\value{rightcount}=2
+    \linktwo{#1}{#2}
+  \fi
+
+  \ifnum\value{rightcount}=3
+    \linkthree{#1}{\link}
+  \fi
+
+  \addtocounter{rightcount}{1}
+}
+
+\newcommand*{\github}[1]{
+  \def\account{#1}
+  \website{github.com/\account}{https://github.com/\account}
+}
+
+\newcommand*{\linkedin}[1]{
+  \def\account{#1}
+  \website{linkedin.com/in/\account}{https://linkedin.com/in/\account}
+}
+%%%
+
+%%% Create MakeTitle
+\renewcommand\maketitle{
+  \begin{minipage}[t]{3.5in}\raggedright
+    \fontseries{b}\fontsize{16pt}{2pt}\selectfont\@name
+    \ifx\@email\empty
+    \else
+      \\ \fontseries{m}\fontsize{10pt}{2pt}\selectfont\href{mailto:\@email}{\@email}
+    \fi
+    \ifx\@phone\empty
+    \else
+      \\ \href{tel:\@tel}{\@phone}
+    \fi
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{3.5in}\raggedleft\fontseries{m}\fontsize{10pt}{2pt}\selectfont
+    \ifx\@linkone\empty
+    \else
+      \href{\@urlone}{\@linkone}
+    \fi
+    \ifx\@linktwo\empty
+    \else
+      \\ \href{\@urltwo}{\@linktwo}
+    \fi
+    \ifx\@linkthree\empty
+    \else
+      \\ \href{\@urlthree}{\@linkthree}
+    \fi
+  \end{minipage}
+  \vspace{0.05in}
+}
+%%% End
+
+%%% Section Environment
+\renewenvironment{section}[1]{
+  \vspace{0.05in}
+
+  \begingroup
+  \fontseries{l}\fontsize{12pt}{\baselineskip}\selectfont #1
+
+  \vspace{0.02in}
+  \hrule\relax
+  \vspace{0.05in}
+
+  \fontseries{m}\fontsize{10pt}{10pt}\selectfont
+}{
+  \endgroup
+  \vspace{0.05in}
+}
+%%%
+
+%%% SectionItem Environment
+\newif\iftitlelink
+\newif\ifsubtitle
+\newif\ifcity
+\newif\ifdate
+
+\DeclareOptionX<SectionItem>{Title}{\def\SectionTitle{#1}}
+\DeclareOptionX<SectionItem>{TitleLink}{\def\SectionTitleLink{#1}\titlelinktrue}
+\DeclareOptionX<SectionItem>{City}{\def\SectionCity{#1}\citytrue}
+
+\DeclareOptionX<SectionItem>{Subtitle}{\def\SectionSubtitle{#1}\subtitletrue}
+\DeclareOptionX<SectionItem>{Date}{\def\SectionDate{#1}\datetrue}
+
+
+\ExecuteOptionsX<SectionItem>{
+  Title=A Default Title,
+}
+
+\newenvironment{sectionitem}[1][]{
+  \begingroup
+  \setkeys{SectionItem}{#1}
+  \iftitlelink
+    \href{\SectionTitleLink}{\textbf{\SectionTitle}}\relax\hfill
+  \else
+    \textbf{\SectionTitle}\relax\hfill
+  \fi
+  \ifcity
+    \SectionCity
+  \else
+    \ifdate
+      \textit{\SectionDate}
+    \else
+    \fi
+  \fi
+  \ifsubtitle
+    \\ \textit{\SectionSubtitle}
+    \ifdate
+      \relax\hfill\textit{\SectionDate}
+    \else
+      \ifcity
+        \relax\hfill\SectionCity
+      \fi
+    \fi
+  \fi
+
+  \vspace{0.01in}
+}{
+  \endgroup
+  \vspace{0.05in}
+}
+
+\newcommand{\inlineitem}[4][{}]{
+  \def\title{#2}
+  \def\separator{#3}
+  \def\definition{#4}
+  \def\right{#1}
+  \ifx\title\empty
+  \else
+    \textbf{\title}\relax
+  \fi
+  \ifx\separator\empty
+  \else
+    \separator
+  \fi
+  \ifx\definition\empty
+  \else
+    \definition\relax
+  \fi
+  \ifx\right\empty
+  \else
+    \hfill
+    \textit{\right}
+  \fi
+}
