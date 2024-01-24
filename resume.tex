@@ -2,6 +2,12 @@
 \documentclass[10pt]{article}
 \usepackage{resume}
 
+\input resume_items/education.tex
+\input resume_items/experience.tex
+\input resume_items/skills.tex
+\input resume_items/projects.tex
+\input resume_items/honors.tex
+\input resume_items/leadership.tex
 
 \begin{document}
 
@@ -16,124 +22,42 @@
 
 %%% Education Section
 \begin{section}{Education}
-    \begin{sectionitem}[
-        Title={University of California, Berkeley}, 
-        Subtitle={Bachelors of Science, Electrical Engineering and Computer Science --- GPA:\@3.90/4.0}, 
-        City={Berkeley, CA}, 
-        Date={August 2022 -- May 2026}
-        ]
-        
-        \begin{itemize}
-            \item \inlineitem{Completed Courses:}{ }{Data Structures \& Algorithms, Machine Structures, Intro Linear Algebra + Circuits 1 \& 2}
-            \item \inlineitem{Current Courses:}{ }{Discrete Math, Computer Security, Database Systems}
-        \end{itemize} 
-    \end{sectionitem}
+    \berkeley{}
 \end{section}
 
 \begin{section}{Experience}
-    \begin{sectionitem}[
-        Title={Berkeley AI Research Lab --- Nerfstudio},
-        Subtitle={Software Developer},
-        City={Berkeley, CA},
-        Date={May 2023 -- Present}
-    ]
-        \begin{itemize}
-            \item Implement viewer features such as configurable titlebars, mobile support, and markdown integration into Viser, an interactive 3D visualization toolbox for Python which acts as the frontend for Nerfstudio.
-            \item Replace CRA with Vite, achieving 50x faster dependency bundling and 25x faster Typescript transpiling
-            \item Collaborate with Viser team to design Python interfaces for interacting with 4 new features
-        \end{itemize}
-    \end{sectionitem}
-
-    \begin{sectionitem}[
-        Title={Leap XR, LLC},
-        Subtitle={Cofounder and Full Stack Developer},
-        City={Fresno, CA},
-        Date={December 2019 -- Present}
-    ]
-        \begin{itemize}
-            \item Develop a teacher dashboard used to view student data and administer lessons using React and Tailwind CSS
-            \item Design a websocket-based server using Bun to bridge VR headsets, a Web Dashboard, and a MongoDB database
-            \item Manage contracted UX design and level design teams and advise on core product design and features            
-        \end{itemize}
-    \end{sectionitem}
-
-    \begin{sectionitem}[
-        Title={Robert Bosch, LLC},
-        Subtitle={Research Intern, GS/PEO --- Nevonex},
-        City={Sunnyvale, CA},
-        Date={October 2022 -- March 2023}
-    ]
-        \begin{itemize}
-            \item Redesign User Interface for Demo Feature to maximize usability by improving layout and control structure
-            \item Modernize existing frontend using VueJS and TailwindCSS to improve maintainability and extensibility
-            \item Work with supervisor to update and integrate existing JQuery codebase into VueJS and to design new features dependent on preserved JQuery implementation without code duplication           
-        \end{itemize}
-    \end{sectionitem}
+    \nerfstudio{}
+    \leapxr{}
+    \bosch{}
 \end{section}
 
 %%% Skills Section
 \begin{section}{Skills}
     \begin{itemize}
-        \item \inlineitem{Languages:}{ }{TypeScript / JavaScript, Python, HTML, CSS, Java, C}
-        \item \inlineitem{Technology:}{ }{React, Svelte, Vue 3, Node.js, Firebase, Git, Linux, MongoDB}
+        \item\langs{}
+        \item\tech{}
     \end{itemize}
 \end{section}
 
 %%% Projects Section
 \begin{section}{Projects}
-    %%% Studrel Candidate Semester Tracker
-    \begin{sectionitem}[
-        Title={Studrel Candidate Semester Tracker},
-        TitleLink={https://github.com/jonahbedouch/studrel}, 
-        Date={October 2023}, 
-        ]
-        \begin{itemize}
-            \item Progress tracker for new HKN candidates to track completion requirements for the Strudel committee project
-            \item Built with SvelteKit, Firebase (Auth and Firestore), and TailwindCSS to allow committee members to create and update candidate accounts, events, and progress in one flow and candidates to view their progress in another.
-        \end{itemize}
-    \end{sectionitem}
-
-    %%% Bedouch.net
-    \begin{sectionitem}[
-        Title={Bedouch.net},
-        TitleLink={https://bedouch.net}, 
-        Date={December 2022}, 
-        ]
-        \begin{itemize}
-            \item A custom-made constantly evolving project portfolio and blog
-            \item Built with SvelteKit and MDSvex, with custom theming and the ability to render markdown posts.
-        \end{itemize}
-    \end{sectionitem}
-
-    %%% Build Your Own World (CS61B)
-    \begin{sectionitem}[
-        Title={Build Your Own World (CS61B)},
-        TitleLink={https://www.youtube.com/watch?v=CfOpw9so67s}, 
-        Date={December 2022}, 
-        ]
-        \begin{itemize}
-            \item A custom, deterministic world generator and viewer built alongside a partner in Java as a final project for CS61B.
-            \item Includes seeded world generator, rudimentary lighting engine, character customization, save states, movement, keyboard interactions, custom mouse-enabled GUI, and a basic collection-based ``win condition.''
-        \end{itemize}
-    \end{sectionitem}
+    \studreltracker{}
+    \bedouchnet{}
+    \byow{}
 \end{section}
 
 %%% Honors Section
 \begin{section}{Honors}
    \begin{itemize}
-    \item \inlineitem[Spring 2023]{Eta Kappa Nu Inductee}{ --- }{Induction into Berkeley IEEE HKN Honor Society}
-    \item \inlineitem[Fall 2022 -- Spring 2023]{College of Engineering Dean's List}{ --- }{GPA in top 10\% of all CoE Students}
-    \item \inlineitem[Fall 2022]{CAA Leadership Award Recipient}{ --- }{\$2,000 scholarship for demonstration of leadership qualities}
+        \item\hkninduction{}
+        \item\deanslist{}
+        \item\caalead{}
    \end{itemize} 
 \end{section}
 
 %%% Leadership Section
 \begin{section}{Leadership}
-    \begin{sectionitem}[Title={Eta Kappa Nu --- Student Relations Committee Officer}, Date={Fall 2023 -- Spring 2024}]
-        \begin{itemize}
-            \item Engage with the EECS community at Berkeley on behalf of the EECS Honor Society by overseeing post-exam fruit snack distribution, managing social media, planning interclub collaborations, and tutoring for 2 hours per week.
-        \end{itemize} 
-    \end{sectionitem}
+    \studrel{}
 \end{section}
 
 \end{document}
